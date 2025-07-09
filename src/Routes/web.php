@@ -6,7 +6,7 @@ use App\Controllers\UserController;
 use App\Middleware\FirebaseAuthMiddleware;
 
 
-$app->group('/', function (RouteCollectorProxy $group) {
+$app->group('/api', function (RouteCollectorProxy $group) {
     $group->post('/login', [UserController::class, 'login']); // opcional
 
     // 🔐 Ruta protegida con Firebase
