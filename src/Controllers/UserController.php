@@ -5,21 +5,27 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use App\Services\UserFnService;
+
 class UserController
 {
     public function getUser(Request $request, Response $response): Response
-{
-    $user = $request->getAttribute('user');
+    {
+        $params = $request->getQueryParams();
+        $rut = $params['rut'] ?? null;
+        $dv = $params['dv'] ?? null;
 
-    $data = [
-        'uid' => $user->user_id,
-        'email' => $user->email ?? null,
-        'firebase' => true
-    ];
+        if (!$rut || !$dv) {
+            $response->getBody()->write(json_encode(['error' => 'Faltan parámetros rut o dv']));
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        }
 
-    $response->getBody()->write(json_encode($data));
-    return $response->withHeader('Content-Type', 'application/json');
-}
+        $userFn = new UserFnService();
+        $result = $userFn->getUserByRut($rut, $dv);
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public function login(Request $request, Response $response): Response
     {

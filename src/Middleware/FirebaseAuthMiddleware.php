@@ -35,7 +35,7 @@ class FirebaseAuthMiddleware
     private function verifyToken(string $idToken)
     {
         $client = new Client();
-        $res = $client->get('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com');
+        $res = $client->get('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com');
         $keys = json_decode(json_encode(json_decode((string)$res->getBody(), true)), true);
 
         $decoded = JWT::decode($idToken, JWK::parseKeySet($keys));
