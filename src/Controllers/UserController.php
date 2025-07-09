@@ -29,7 +29,7 @@ class UserController
     public function getUserByEmail(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
-        $email = $params['email'] ?? null; // 👈 corregido
+        $email = $params['email'] ?? null;
 
         if (!$email) {
             $response->getBody()->write(json_encode(['error' => 'Falta indicar el email']));
@@ -37,7 +37,7 @@ class UserController
         }
 
         $userFn = new UserService();
-        $result = $userFn->getPersonaByEmail($email); // 👈 usa $email (no $rut)
+        $result = $userFn->getPersonaByEmail($email); 
 
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
@@ -52,7 +52,6 @@ class UserController
         $email = $params['email'] ?? '';
         $password = $params['password'] ?? '';
 
-        // Simulación login (reemplazar por lógica real)
         if ($email === 'pablo@example.com' && $password === '123456') {
             $response->getBody()->write(json_encode(['token' => 'fake-jwt-token']));
         } else {
