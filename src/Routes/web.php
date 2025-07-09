@@ -14,7 +14,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
     // 🔐 Ruta protegida con Firebase
     $group->group('', function (RouteCollectorProxy $auth) {
-        $auth->get('/user', [UserController::class, 'getPersonaByEmail']);
+        $auth->get('/user', [UserController::class, 'getUserByEmail']);
         
     })->add(new FirebaseAuthMiddleware());
 });
