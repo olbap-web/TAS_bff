@@ -32,4 +32,21 @@ class UserService
             return ['error' => 'No se pudo contactar con user-fn', 'message' => $e->getMessage()];
         }
     }
+    public function getPersonaByEmail(string $email): ?array
+    {
+        try {
+            $response = $this->client->request('GET', $this->baseUrl, [
+                'query' => [
+                    'email' => $email,
+                ],
+                'timeout' => 5.0
+            ]);
+
+            $body = $response->getBody()->getContents();
+            return json_decode($body, true);
+
+        } catch (\Exception $e) {
+            return ['error' => 'No se pudo contactar con user-fn', 'message' => $e->getMessage()];
+        }
+    }
 }

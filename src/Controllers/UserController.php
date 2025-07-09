@@ -26,6 +26,22 @@ class UserController
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
+    public function getUserByEmail(Request $request, Response $response): Response
+    {
+        $params = $request->getQueryParams();
+        $rut = $params['email'] ?? null;
+
+        if (!$rut ) {
+            $response->getBody()->write(json_encode(['error' => 'Falta indicar el email']));
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        }
+
+        $userFn = new UserFnService();
+        $result = $userFn->getPersonaByEmail($email);
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public function login(Request $request, Response $response): Response
     {
