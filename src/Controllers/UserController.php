@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use App\Services\UserFnService;
+use App\Services\UserService;
 
 class UserController
 {
@@ -20,7 +20,7 @@ class UserController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $userFn = new UserFnService();
+        $userFn = new UserService();
         $result = $userFn->getUserByRut($rut, $dv);
 
         $response->getBody()->write(json_encode($result));
@@ -36,7 +36,7 @@ class UserController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $userFn = new UserFnService();
+        $userFn = new UserService();
         $result = $userFn->getPersonaByEmail($email);
 
         $response->getBody()->write(json_encode($result));
