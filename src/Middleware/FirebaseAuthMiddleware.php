@@ -26,7 +26,7 @@ class FirebaseAuthMiddleware
 
         try {
             $decoded = $this->verifyToken($token);
-            return $handler->handle($request->withAttribute('user', $decoded));
+            return $handler->handle($request->withAttribute('email', $decoded));
         } catch (\Exception $e) {
             return $this->unauthorized($e->getMessage());
         }
