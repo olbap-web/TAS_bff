@@ -39,7 +39,7 @@ class UserService
                 'query' => [
                     'email' => $email,
                 ],
-                'timeout' => 5.0
+                'timeout' => 105
             ]);
 
             $body = $response->getBody()->getContents();
