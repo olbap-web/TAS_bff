@@ -28,20 +28,21 @@ class UserController
     }
     public function getUserByEmail(Request $request, Response $response): Response
     {
-        $decoded = $request->getAttribute('firebase_user'); // ← del middleware
-        $email = $decoded->email ?? null;
+        $params = $request->getQueryParams();
+        $email = $params['email'] ?? null; // 👈 corregido
 
         if (!$email) {
-            $response->getBody()->write(json_encode(['error' => 'No se encontró el email en el token']));
+            $response->getBody()->write(json_encode(['error' => 'Falta indicar el email']));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
         $userFn = new UserService();
-        $result = $userFn->getPersonaByEmail($email);
+        $result = $userFn->getPersonaByEmail($email); // 👈 usa $email (no $rut)
 
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
 
 
     public function login(Request $request, Response $response): Response
