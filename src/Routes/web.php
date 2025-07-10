@@ -16,7 +16,7 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->map(['GET', 'POST', 'PUT', 'DELETE'], '/{routes:.+}', function ($request, $response) {
         $uri = $request->getUri()->getPath();
-        if (strpos($uri, '/api') !== 0) {
+        if (strpos($uri, '/api') !== 0 || $uri == '/') {
             return (new ErrorController)->notAuth($request, $response, []);
         }
 
