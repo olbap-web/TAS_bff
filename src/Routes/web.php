@@ -2,6 +2,10 @@
 
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\UserController;
+use App\Controllers\ReminderController;
+use App\Controllers\FamilyGroupController;
+
+
 use App\Controllers\ErrorController;
 use App\Middleware\FirebaseAuthMiddleware;
 
@@ -10,7 +14,9 @@ $app->group('', function (RouteCollectorProxy $group) {
     // Rutas protegidas dentro de /api
     $group->group('/api', function (RouteCollectorProxy $auth) {
         $auth->get('/user', [UserController::class, 'getUserByEmail']);
-        $auth->get('/reminder', [UserController::class, 'getReminderByUser']);
+        $auth->get('/reminder/family-group', [ReminderController::class, 'getReminderByFammilyGroup']);
+        $auth->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
+
     })->add(new FirebaseAuthMiddleware());
 
 

@@ -2,24 +2,21 @@
 
 namespace App\Service;
 
-use GuzzleHttp\Client;
 
-class ReminderService
+class FamilyGroupService
 {
-    private Client $client;
-    private string $baseUrl = 'https://reminder-fn-218357869562.southamerica-west1.run.app';
+    private string $baseUrl = 'https://family-group-fn-218357869562.southamerica-west1.run.app';
 
     public function __construct()
     {
-        $this->client = new Client();
     }
 
 
-    public function getReminderByFG(string $email): ?array
+    public function getFamilyGroupByPersona(int $pk): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
-                'email' => $email,
+                'persona' => $pk,
             ],
             'timeout' => 5.0
         ]);

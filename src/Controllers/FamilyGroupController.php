@@ -5,23 +5,23 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use App\Service\ReminderService;
+use App\Service\FamilyGroupService;
 
-class ReminderController
+class FamilyGroupController
 {
     
-    public function getReminderByFammilyGroup(Request $request, Response $response): Response
+    public function getFamilyGroupByPersona(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
-        $pk = $params['fg'] ?? null; // pk del family_group
+        $pk = $params['persona'] ?? null; // pk de la persona
 
         if (!$pk) {
-            $response->getBody()->write(json_encode(['error' => 'Falta indicar el email']));
+            $response->getBody()->write(json_encode(['error' => 'Falta indicar el identificador de la persona']));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $reminderServ = new ReminderService();
-        $result = $reminderServ->getReminderByFG($pk); 
+        $FGservice = new FamilyGroupService();
+        $result = $FGservice->getFamilyGroupByPersona($pk); 
 
         if($result['status'] !=200){
             $response->getBody()->write(json_encode([
