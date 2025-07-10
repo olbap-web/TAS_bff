@@ -39,13 +39,16 @@ class UserController
         $userFn = new UserService();
         $result = $userFn->getPersonaByEmail($email); 
 
-        if($result['status'] !=200){
-            $response->getBody()->write(json_encode([
-                "message"=>$result['message'],
-                "error"=>true,
-            ]));
-            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        if(isset($result['status'])){
+            if($result['status'] !=200){
+                $response->getBody()->write(json_encode([
+                    "message"=>$result['message'],
+                    "error"=>true,
+                ]));
+                return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+            }
         }
+        
 
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
