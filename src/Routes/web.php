@@ -12,7 +12,7 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     // $group->get('',[api])
 
-    $group->post('/', [ErrorController::class, 'notAuth']); // opcional
+    $group->get('/', [ErrorController::class, 'notAuth']); // opcional
 
     // 🔐 Ruta protegida con Firebase
     $group->group('/api', function (RouteCollectorProxy $auth) {
