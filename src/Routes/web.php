@@ -2,19 +2,23 @@
 
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\UserController;
+use App\Controllers\ErrorController;
+
 
 use App\Middleware\FirebaseAuthMiddleware;
 
 
-$app->group('/api', function (RouteCollectorProxy $group) {
+$app->group('', function (RouteCollectorProxy $group) {
 
     // $group->get('',[api])
 
-    $group->post('/login', [UserController::class, 'login']); // opcional
+    $group->post('/', [ErrorController::class, 'notAuth']); // opcional
 
     // 🔐 Ruta protegida con Firebase
-    $group->group('', function (RouteCollectorProxy $auth) {
+    $group->group('/api', function (RouteCollectorProxy $auth) {
         $auth->get('/user', [UserController::class, 'getUserByEmail']);
+        $auth->get('/reminder', [UserController::class, 'getReminderByUser']);
+
         
     })->add(new FirebaseAuthMiddleware());
 });
