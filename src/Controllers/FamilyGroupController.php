@@ -13,7 +13,7 @@ class FamilyGroupController
     public function getFamilyGroupByPersona(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
-        $pk = $params['persona'] ?? null; // pk de la persona
+        $pk = $params['id'] ?? null; // pk de la persona
 
         if (!$pk) {
             $response->getBody()->write(json_encode(['error' => 'Falta indicar el identificador de la persona']));
