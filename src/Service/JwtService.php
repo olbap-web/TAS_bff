@@ -11,7 +11,7 @@ class JwtService
 
     public function __construct()
     {
-        $this->secret = 'super_secret_key'; // ✅ cámbiala en producción
+        $this->secret = 'super_secret_key'; 
     }
 
     public function generate(array $payload): string

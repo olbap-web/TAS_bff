@@ -13,8 +13,10 @@ $app->group('', function (RouteCollectorProxy $group) {
     // $group->get('',[api])
 
     $group->get('/', [ErrorController::class, 'notAuth']); // opcional
+    $group->get('**', [ErrorController::class, 'notAuth']); // opcional
 
-    // 🔐 Ruta protegida con Firebase
+
+    // Ruta protegida con Firebase
     $group->group('/api', function (RouteCollectorProxy $auth) {
         $auth->get('/user', [UserController::class, 'getUserByEmail']);
         $auth->get('/reminder', [UserController::class, 'getReminderByUser']);
