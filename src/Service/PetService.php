@@ -47,7 +47,7 @@ class PetService
             ];
         }
 
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode(["id"=>$response->getBody()->getContents()], true);
 
       
     }
