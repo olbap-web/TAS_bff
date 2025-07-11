@@ -12,13 +12,16 @@ class UserController
     public function getUserByRut(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
-        $rut = $params['rut'] ?? null;
-        $dv = $params['dv'] ?? null;
-
-        if (!$rut || !$dv) {
-            $response->getBody()->write(json_encode(['error' => 'Faltan parámetros rut o dv']));
+        $aux = isset($params['rut']) && strlen(trim($params['rut']))>0? trim($params['rut']) : null;
+        
+        if (!$rut) {
+            $response->getBody()->write(json_encode(['error' => 'Falta indicar el rut']));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
+
+        $rut = explode('-',$aux)[0];
+        $dv = explode('-',$aux)[1];
+
 
         $userFn = new UserService();
         $result = $userFn->getUserByRut($rut, $dv);
