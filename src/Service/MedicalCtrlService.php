@@ -34,23 +34,5 @@ class FamilyGroupService
         return json_decode($body, true);
     }
 
-    public function addPet(int $pk): ?array
-    {
-        $response = $this->client->request('GET', $this->baseUrl, [
-            'query' => [
-                'id' => $pk,
-            ],
-            'timeout' => 5.0
-        ]);
-
-        if($response->getStatusCode() != 200){
-            return [
-                'status'=>$response->getStatusCode(),
-                'message' => $response->getBody(),
-            ];
-        }
-
-        $body = $response->getBody()->getContents();
-        return json_decode($body, true);
-    }
+    
 }
