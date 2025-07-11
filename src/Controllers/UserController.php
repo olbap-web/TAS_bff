@@ -9,7 +9,7 @@ use App\Service\UserService;
 
 class UserController
 {
-    public function getUser(Request $request, Response $response): Response
+    public function getUserByRut(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
         $rut = $params['rut'] ?? null;
@@ -64,7 +64,7 @@ class UserController
          * Antes de agregar deberiamos preguntar si existe rut ?
          * aunque puedo hacer las consultas y manejar todo ese flujo desde la app flutter
         */
-        
+
 
         $result = $usrService->addUser($body);
 
