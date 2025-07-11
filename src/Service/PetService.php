@@ -35,27 +35,21 @@ class PetService
     }
 
     public function addPet(array $insert): ?array{
-        try {
-            $response = $this->client->request('POST', $this->baseUrl, [
-                'json' => $insert, 
-                'timeout' => 5.0
-            ]);
+        $response = $this->client->request('POST', $this->baseUrl, [
+            'json' => $insert, 
+            'timeout' => 5.0
+        ]);
 
-            if ($response->getStatusCode() !== 200) {
-                return [
-                    'status' => $response->getStatusCode(),
-                    'message' => $response->getBody()->getContents(),
-                ];
-            }
-
-            return json_decode($response->getBody()->getContents(), true);
-
-        } catch (\Exception $e) {
+        if ($response->getStatusCode() !== 200) {
             return [
-                'error' => 'No se pudo agregar la mascota',
-                'message' => $e->getMessage()
+                'status' => $response->getStatusCode(),
+                'message' => $response->getBody()->getContents(),
             ];
         }
+
+        return json_decode($response->getBody()->getContents(), true);
+
+      
     }
 
 }
