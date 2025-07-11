@@ -11,7 +11,7 @@ use App\Controllers\PetController;
 use App\Controllers\ErrorController;
 use App\Middleware\FirebaseAuthMiddleware;
 
-$app->group('', function (RouteCollectorProxy $group) {
+$app->group('/api', function (RouteCollectorProxy $group) {
 
     // $group->get('/user', [UserController::class, 'getUserByEmail']);
     $group->get('/reminder/family-group', [ReminderController::class, 'getReminderByFammilyGroup']);
@@ -19,7 +19,7 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->get('/pet/family-group', [PetController::class, 'getPetsByFamilyGroup']);
 
     // Rutas protegidas dentro de /api
-    $group->group('/api', function (RouteCollectorProxy $auth) {
+    $group->group('/secure', function (RouteCollectorProxy $auth) {
         $auth->get('/user', [UserController::class, 'getUserByEmail']);
         // $auth->get('/reminder/family-group', [ReminderController::class, 'getReminderByFammilyGroup']);
         // $auth->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
