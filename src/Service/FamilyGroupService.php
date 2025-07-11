@@ -6,9 +6,10 @@ namespace App\Service;
 class FamilyGroupService
 {
     private string $baseUrl = 'https://family-group-fn-218357869562.southamerica-west1.run.app';
-
+    private Client $client;
     public function __construct()
     {
+                $this->client = new Client();
     }
 
 
