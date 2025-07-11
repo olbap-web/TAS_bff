@@ -14,7 +14,7 @@ class UserController
         $params = $request->getQueryParams();
         $aux = isset($params['rut']) && strlen(trim($params['rut']))>0? trim($params['rut']) : null;
         
-        if (!$rut) {
+        if (!$aux) {
             $response->getBody()->write(json_encode(['error' => 'Falta indicar el rut']));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
