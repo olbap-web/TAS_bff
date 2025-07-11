@@ -54,8 +54,6 @@ class PetController
 
         $result = $petService->addPet($body);
 
-        $response = [];
-
        if(isset($result['status'])){
             if($result['status'] !=200){
                 $response->getBody()->write(json_encode([
@@ -66,7 +64,7 @@ class PetController
             }
         }
 
-        $response->getBody()->write(json_encode($response));
+        $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
 
