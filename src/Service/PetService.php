@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use GuzzleHttp\Client;
 
 class FamilyGroupService
 {
