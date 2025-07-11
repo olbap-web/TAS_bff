@@ -15,6 +15,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
     // $group->get('/user', [UserController::class, 'getUserByEmail']);
     $group->get('/reminder/family-group', [ReminderController::class, 'getReminderByFammilyGroup']);
+    $group->get('/reminder/pet', [ReminderController::class, 'getReminderByPet']);
+
     $group->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
     $group->get('/pet/family-group', [PetController::class, 'getPetsByFamilyGroup']);
 
