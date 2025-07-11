@@ -47,9 +47,16 @@ class PetService
             ];
         }
 
-        return json_decode(["id"=>$response->getBody()->getContents()], true);
-
-      
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
     }
 
 }
+
+/**
+ * <b>Fatal error</b>: Uncaught TypeError: json_decode(): Argument #1 ($json) must be of type string, array given in
+ * /app/src/Service/PetService.php:50
+ * Stack trace:
+ * #0 /app/src/Service/PetService.php(50): json_decode(Array, true)
+ * #1 /app/src/Controllers/PetController.php(55): App\Service\PetService-&gt;addPet(Array)
+*/
