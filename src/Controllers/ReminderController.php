@@ -16,19 +16,21 @@ class ReminderController
         $pk = $params['fg'] ?? null; // pk del family_group
 
         if (!$pk) {
-            $response->getBody()->write(json_encode(['error' => 'Falta indicar el email']));
+            $response->getBody()->write(json_encode(['error' => 'Falta indicar el grupo familiar']));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
         $reminderServ = new ReminderService();
         $result = $reminderServ->getReminderByFG($pk); 
 
-        if($result['status'] !=200){
-            $response->getBody()->write(json_encode([
-                "message"=>$result['message'],
-                "error"=>true,
-            ]));
-            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        if(isset($result['status'])){
+            if($result['status'] !=200){
+                $response->getBody()->write(json_encode([
+                    "message"=>$result['message'],
+                    "error"=>true,
+                ]));
+                return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+            }
         }
 
         $response->getBody()->write(json_encode($result));

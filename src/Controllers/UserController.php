@@ -55,21 +55,4 @@ class UserController
     }
 
 
-
-    public function login(Request $request, Response $response): Response
-    {
-        $params = (array)$request->getParsedBody();
-
-        $email = $params['email'] ?? '';
-        $password = $params['password'] ?? '';
-
-        if ($email === 'pablo@example.com' && $password === '123456') {
-            $response->getBody()->write(json_encode(['token' => 'fake-jwt-token']));
-        } else {
-            $response->getBody()->write(json_encode(['error' => 'Credenciales inválidas']));
-            return $response->withStatus(401)->withHeader('Content-Type', 'application/json');
-        }
-
-        return $response->withHeader('Content-Type', 'application/json');
-    }
 }
