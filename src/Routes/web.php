@@ -5,6 +5,8 @@ use App\Controllers\UserController;
 use App\Controllers\ReminderController;
 use App\Controllers\FamilyGroupController;
 use App\Controllers\PetController;
+use App\Controllers\MedicalCtrlController;
+
 
 
 
@@ -19,6 +21,13 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
     $group->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
     $group->get('/pet/family-group', [PetController::class, 'getPetsByFamilyGroup']);
+
+    $group->get('/medical-ctrl/pet', [MedicalCtrlController::class, 'getMedicalCtrlByPet']);
+
+    $group->post('/pet', [PetController::class, 'postPet']);
+    $group->post('/medical-ctrl', [MedicalCtrlController::class, 'postMedicalCtrl']);
+
+
 
     // Rutas protegidas dentro de /api
     $group->group('/secure', function (RouteCollectorProxy $auth) {

@@ -40,7 +40,7 @@ class ReminderController
     public function getReminderByPet(Request $request, Response $response): Response
     {
         $params = $request->getQueryParams();
-        $pk = $params['pet'] ?? null; // pk del family_group
+        $pk = $params['id'] ?? null; // pk del family_group
 
         if (!$pk) {
             $response->getBody()->write(json_encode(['error' => 'Falta indicar la mascota']));

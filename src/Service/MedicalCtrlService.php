@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class FamilyGroupService
 {
-    private string $baseUrl = 'https://family-group-fn-218357869562.southamerica-west1.run.app';
+    private string $baseUrl = 'https://medical-ctrl-218357869562.southamerica-west1.run.app';
     private Client $client;
     public function __construct()
     {
@@ -14,7 +14,27 @@ class FamilyGroupService
     }
 
 
-    public function getFamilyGroupByPersona(int $pk): ?array
+    public function getMedicalCtrlByPet(int $pk): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'id' => $pk,
+            ],
+            'timeout' => 5.0
+        ]);
+
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+
+    public function addPet(int $pk): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
