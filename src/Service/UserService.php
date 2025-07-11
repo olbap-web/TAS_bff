@@ -14,24 +14,27 @@ class UserService
         $this->client = new Client();
     }
 
-    // public function getUserByRut(string $rut, string $dv): ?array
-    // {
-    //     try {
-    //         $response = $this->client->request('GET', $this->baseUrl, [
-    //             'query' => [
-    //                 'rut' => $rut,
-    //                 'dv' => $dv
-    //             ],
-    //             'timeout' => 5.0
-    //         ]);
+    public function getUserByRut(string $rut, string $dv): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'rut' => $rut,
+                'dv' => $dv
+            ],
+            'timeout' => 5.0
+        ]);
 
-    //         $body = $response->getBody()->getContents();
-    //         return json_decode($body, true);
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
 
-    //     } catch (\Exception $e) {
-    //         return ['error' => 'No se pudo contactar con user-fn', 'message' => $e->getMessage()];
-    //     }
-    // }
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+
+    }
     public function getPersonaByEmail(string $email): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
@@ -51,4 +54,21 @@ class UserService
         $body = $response->getBody()->getContents();
         return json_decode($body, true);
     }
+    public function addUser(array $insert): ?array{
+        $response = $this->client->request('POST', $this->baseUrl, [
+            'json' => $insert, 
+            'timeout' => 5.0
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            return [
+                'status' => $response->getStatusCode(),
+                'message' => $response->getBody()->getContents(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+
 }

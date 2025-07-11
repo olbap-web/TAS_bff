@@ -54,5 +54,33 @@ class UserController
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function postUser(Request $request, Response $response){
+        $body = (array)$request->getParsedBody();
+        
+        $usrService = new UserService();
+
+        
+        /**
+         * Antes de agregar deberiamos preguntar si existe rut ?
+         * aunque puedo hacer las consultas y manejar todo ese flujo desde la app flutter
+        */
+        
+
+        $result = $usrService->addUser($body);
+
+       if(isset($result['status'])){
+            if($result['status'] !=200){
+                $response->getBody()->write(json_encode([
+                    "message"=>$result['message'],
+                    "error"=>true,
+                ]));
+                return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+            }
+        }
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
 
 }
