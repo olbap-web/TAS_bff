@@ -29,6 +29,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
     $group->post('/user', [UserController::class, 'postUser']);
     $group->get('/user', [UserController::class, 'getUserByEmail']);
+    $group->get('/user/persona', [UserController::class, 'getUserByRut']);
+
 
 
     // Rutas protegidas dentro de /api
