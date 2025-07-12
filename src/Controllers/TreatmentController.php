@@ -21,7 +21,7 @@ class TreatmentController
         }
 
         $treatmentService = new TreatmentService();
-        $result = $petService->getTreatmentByPk($pk); 
+        $result = $treatmentService->getTreatmentByPk($pk); 
 
         if(isset($result['status'])){
             if($result['status'] !=200){

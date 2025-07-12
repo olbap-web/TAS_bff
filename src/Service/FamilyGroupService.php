@@ -19,6 +19,7 @@ class FamilyGroupService
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
                 'id' => $pk,
+                "persona"=>1
             ],
             'timeout' => 5.0
         ]);
