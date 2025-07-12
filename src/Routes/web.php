@@ -6,6 +6,8 @@ use App\Controllers\ReminderController;
 use App\Controllers\FamilyGroupController;
 use App\Controllers\PetController;
 use App\Controllers\MedicalCtrlController;
+use App\Controllers\TreatmentController;
+
 
 
 
