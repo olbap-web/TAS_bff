@@ -37,6 +37,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
     $group->get('/treatment', [TreatmentController::class, 'getTreatmentByPk']);
     $group->get('/treatment/documents', [TreatmentController::class, 'getDocumentsByTreatment']);
     $group->get('/treatment/medicine', [TreatmentController::class, 'getMedicineByTreatment']);
+    $group->get('/treatment/pet', [TreatmentController::class, 'getTreatmentsByPet']);
+
 
 
 
