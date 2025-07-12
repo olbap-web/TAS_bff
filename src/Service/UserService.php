@@ -56,7 +56,7 @@ class UserService
     }
     public function addUser(array $insert): ?array{
         $response = $this->client->request('POST', $this->baseUrl, [
-            'json' => $insert, 
+            'body' => $insert, 
             'timeout' => 5.0
         ]);
 
