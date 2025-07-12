@@ -79,7 +79,7 @@ class UserController
          * aunque puedo hacer las consultas y manejar todo ese flujo desde la app flutter
         */
 
-        print_r($body);
+        // print_r($body);
 
         $result = $usrService->addUser($body);
 
