@@ -17,13 +17,11 @@ use App\Middleware\FirebaseAuthMiddleware;
 
 $app->group('/api', function (RouteCollectorProxy $group) {
 
+    $group->get('/reminder', [ReminderController::class, 'getReminderByPk']);
     
     /**
      * Faltan los controles y servicios de tratamientos...
      */
-    
-
-    // Rutas protegidas dentro de /api
     $group->group('/secure', function (RouteCollectorProxy $auth) {
         // $group->get('/user', [UserController::class, 'getUserByEmail']);
 
