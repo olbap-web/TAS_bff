@@ -4,9 +4,9 @@ namespace App\Service;
 
 use GuzzleHttp\Client;
 
-class PetService
+class TreatmentService
 {
-    private string $baseUrl = 'https://pet-fn-218357869562.southamerica-west1.run.app';
+    private string $baseUrl = 'https://treatment-fn-218357869562.southamerica-west1.run.app';
     private Client $client;
     public function __construct()
     {
@@ -14,27 +14,7 @@ class PetService
     }
 
 
-    public function getPetsByFamilyGroup(int $pk): ?array
-    {
-        $response = $this->client->request('GET', $this->baseUrl, [
-            'query' => [
-                'fg' => $pk,
-            ],
-            'timeout' => 5.0
-        ]);
-
-        if($response->getStatusCode() != 200){
-            return [
-                'status'=>$response->getStatusCode(),
-                'message' => $response->getBody(),
-            ];
-        }
-
-        $body = $response->getBody()->getContents();
-        return json_decode($body, true);
-    }
-
-    public function getPetByPk(int $pk): ?array
+    public function getTreatmentByPk(int $pk): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
@@ -53,8 +33,73 @@ class PetService
         $body = $response->getBody()->getContents();
         return json_decode($body, true);
     }
+    public function getDocumentsByTreatment(int $pk): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'id' => $pk,
+                "documento"=>true,
+            ],
+            'timeout' => 5.0
+        ]);
 
-    public function addPet(array $insert): ?array{
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+    public function getMedicinesByTreatment(int $pk): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'id' => $pk,
+                "medicamento"=>true,
+            ],
+            'timeout' => 5.0
+        ]);
+
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+    public function getTreatmentsByPet(int $pk): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'id' => $pk,
+                "mascota"=>true,
+            ],
+            'timeout' => 5.0
+        ]);
+
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+    
+
+
+
+
+    #ADD
+    public function addTreatment(array $insert): ?array{
         $response = $this->client->request('POST', $this->baseUrl, [
             'json' => $insert, 
             'timeout' => 5.0
@@ -72,11 +117,3 @@ class PetService
     }
 
 }
-
-/**
- * <b>Fatal error</b>: Uncaught TypeError: json_decode(): Argument #1 ($json) must be of type string, array given in
- * /app/src/Service/PetService.php:50
- * Stack trace:
- * #0 /app/src/Service/PetService.php(50): json_decode(Array, true)
- * #1 /app/src/Controllers/PetController.php(55): App\Service\PetService-&gt;addPet(Array)
-*/

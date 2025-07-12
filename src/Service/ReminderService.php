@@ -15,11 +15,11 @@ class ReminderService
     }
 
 
-    public function getReminderByFG(string $email): ?array
+    public function getReminderByPk(string $pk): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
-                'email' => $email,
+                'id' => $pk,
             ],
             'timeout' => 5.0
         ]);
@@ -34,11 +34,11 @@ class ReminderService
         $body = $response->getBody()->getContents();
         return json_decode($body, true);
     }
-    public function getReminderByPet(string $email): ?array
+    public function getReminderByUser(string $user): ?array
     {
         $response = $this->client->request('GET', $this->baseUrl, [
             'query' => [
-                'pet' => $email,
+                'usuario' => $user,
             ],
             'timeout' => 5.0
         ]);
@@ -53,4 +53,22 @@ class ReminderService
         $body = $response->getBody()->getContents();
         return json_decode($body, true);
     }
+    public function addReminder(array $insert): ?array{
+        $response = $this->client->request('POST', $this->baseUrl, [
+            'json' => $insert, 
+            'timeout' => 5.0
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            return [
+                'status' => $response->getStatusCode(),
+                'message' => $response->getBody()->getContents(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
+    
+
 }
