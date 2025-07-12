@@ -20,7 +20,7 @@ class MedicalCtrlController
         }
 
         $FGservice = new MedicalCtrlService();
-        $result = $FGservice->getFamilyGroupByPersona($pk); 
+        $result = $FGservice->getMedicalCtrlByPk($pk); 
 
         if(isset($result['status'])){
             if($result['status'] !=200){
@@ -46,7 +46,7 @@ class MedicalCtrlController
         }
 
         $FGservice = new MedicalCtrlService();
-        $result = $FGservice->getFamilyGroupByPersona($pk); 
+        $result = $FGservice->getMedicalCtrlByPet($pk); 
 
         if(isset($result['status'])){
             if($result['status'] !=200){
