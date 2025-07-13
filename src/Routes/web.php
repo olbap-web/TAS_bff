@@ -7,6 +7,8 @@ use App\Controllers\FamilyGroupController;
 use App\Controllers\PetController;
 use App\Controllers\MedicalCtrlController;
 use App\Controllers\TreatmentController;
+use App\Controllers\MedicineController;
+
 
 
 
@@ -57,6 +59,9 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         
         $auth->get('/reminder/user', [ReminderController::class, 'getReminderByUser']);
         $auth->get('/reminder', [ReminderController::class, 'getReminderByPk']);
+
+        $auth->get('/medicine/no-treatment', [ReminderController::class, 'getMedicineNotTreatment']);
+
 
 
         $auth->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
