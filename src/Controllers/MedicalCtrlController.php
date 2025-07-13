@@ -65,17 +65,21 @@ class MedicalCtrlController
     {
         $body = (array)$request->getParsedBody();
 
-        $email = $body['email'] ?? '';
-        $password = $body['password'] ?? '';
+        $MCService = new MedicalCtrlService();
 
-        // Simulación login (reemplazar por lógica real)
-        if ($email === 'pablo@example.com' && $password === '123456') {
-            $response->getBody()->write(json_encode(['token' => 'fake-jwt-token']));
-        } else {
-            $response->getBody()->write(json_encode(['error' => 'Credenciales inválidas']));
-            return $response->withStatus(401)->withHeader('Content-Type', 'application/json');
+        $result = $MCService->addMedicalCtrl($body);
+
+        if(isset($result['status'])){
+            if($result['status'] !=200){
+                $response->getBody()->write(json_encode([
+                    "message"=>$result['message'],
+                    "error"=>true,
+                ]));
+                return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+            }
         }
 
+        $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
 
