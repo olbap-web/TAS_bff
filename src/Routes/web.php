@@ -60,7 +60,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         $auth->get('/reminder/user', [ReminderController::class, 'getReminderByUser']);
         $auth->get('/reminder', [ReminderController::class, 'getReminderByPk']);
 
-        $auth->get('/medicine/no-treatment', [ReminderController::class, 'getMedicineNotTreatment']);
+        $auth->get('/medicine/no-treatment', [MedicineController::class, 'getMedicineNotTreatment']);
 
 
 
