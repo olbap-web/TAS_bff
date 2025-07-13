@@ -4,7 +4,7 @@ namespace App\Service;
 
 use GuzzleHttp\Client;
 
-class PetService
+class MedicineService
 {
     private string $baseUrl = 'https://medicine-fn-218357869562.southamerica-west1.run.app';
     private Client $client;
