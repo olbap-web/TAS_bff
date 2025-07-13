@@ -34,6 +34,26 @@ class FamilyGroupService
         $body = $response->getBody()->getContents();
         return json_decode($body, true);
     }
+    public function getMembers(int $pk): ?array
+    {
+        $response = $this->client->request('GET', $this->baseUrl, [
+            'query' => [
+                'id' => $pk,
+                "members"=>1
+            ],
+            'timeout' => 5.0
+        ]);
+
+        if($response->getStatusCode() != 200){
+            return [
+                'status'=>$response->getStatusCode(),
+                'message' => $response->getBody(),
+            ];
+        }
+
+        $body = $response->getBody()->getContents();
+        return json_decode($body, true);
+    }
     public function addFamilyGroup(array $insert): ?array{
         $response = $this->client->request('POST', $this->baseUrl, [
             'json' => $insert, 

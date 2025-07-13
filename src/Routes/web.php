@@ -60,6 +60,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
 
 
         $auth->get('/family-group/persona', [FamilyGroupController::class, 'getFamilyGroupByPersona']);
+        $auth->get('/family-group/members', [FamilyGroupController::class, 'getMembersByFamilyGroup']);
 
         /**family-group/pets  -> hace referencia a las mascotas del grupo familiar ... cambiar esto */
 
@@ -79,6 +80,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         $auth->post('/user', [UserController::class, 'postUser']);
         $auth->post('/reminder', [ReminderController::class, 'postReminder']);
         $auth->post('/family-group', [FamilyGroupController::class, 'postFamilyGroup']);
+        // $auth->post('/family-group/deactivate', [FamilyGroupController::class, 'deactivateFromFamilyGroup']);
+
         $auth->post('/pet', [PetController::class, 'postPet']);
         $auth->post('/medical-ctrl', [MedicalCtrlController::class, 'postMedicalCtrl']);
         $auth->post('/treatment', [TreatmentController::class, 'postTreatment']);
